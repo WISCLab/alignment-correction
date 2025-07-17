@@ -1,14 +1,6 @@
 project:
-  type: website
+  type: manuscript
   output-dir: docs
-
-website:
-  title: "wisclab-guide"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - alignmentGuide.qmd
 
 format:
   html:
@@ -16,5 +8,5 @@ format:
     css: styles.css
     toc: true
 
-editor: visual
+editor: source
 

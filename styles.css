@@ -17,3 +17,7 @@ figure {
   background: #EEE;
   padding: 1em;
 }
+
+.quarto-float-tbl.figure {
+  background: #FFF;
+}
