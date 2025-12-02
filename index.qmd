@@ -25,16 +25,26 @@ bibliography: refs.bib
 
 ## Introduction
 
+<!--
+notes: 
+- audience is for our people // it's a protocol
+- need an abstract
+--> 
+
 ### Forced alignment and textgrids
 
 In the [WISC Lab](https://kidspeech.wisc.edu/) we have audio recordings
-of children with both typical speech development and speech and motor
-impairments due to Cerebral Palsy. In these recordings the child is
+of children with both typical speech development as well as children with speech and motor
+impairments due to cerebral palsy. In these recordings the child is
 repeating words and phrases from the *Test of Children’s Speech* [TOCS,
-@tocs2007]. Examples include phrases like *cowboy boots* and *put all
-the toys away*. Recordings are used to calculate articulation rate,
+@tocs2007]. Example items include *cowboy boots* and *put all
+the toys away*. These speech samples are used to calculate articulation rate,
 speech sound accuracy, and measures of how intelligible a child is.
-@fig-1 shows what it looks like when we open a recording of the sentence 
+
+
+
+We use the Praat software to visualize and annotate the acoustic features of these speech 
+samples. @fig-1 shows a screenshot for the sentence  
 *the sign says keep out* in Praat.
 
 ![Recording of “the sign says keep out” in Praat. This screenshot is taking from a Praat editor window. In this screenshot and all others, we have removed parts of the surrounding Praat interface.](alignmentGuide/media/image4.png){#fig-1 width="60%"}
@@ -45,69 +55,99 @@ we want to keep track of how long different words and sounds are?
 
 Marking the start and end points of sounds and words in a recording is
 useful for a variety of research purposes. However, we can’t annotate
-sound files directly, so we need to create a separate file that stores
+sound files directly. We need to create a separate file that stores
 all of the locations of events like the start and end of a word or
 sound. Such a companion file is called a **textgrid**. This file is
 designed to be paired with the audio file, and it contains boundaries
 and labels indicating the locations of the words and phonemes in the
 audio file.
 
-The tool that we use to create a separate document containing annotations and labels for different words and sounds is called a **forced aligner**. A forced aligner takes an audio file (typically a .wav file) and a transcription of what was said in the audio file (usually a .txt or .lab file) and uses speech recognition technology to create textgrid. 
+<!--
+maybe a callout box or glossary
+-->
+
+
+It would be time-consuming to set down the word and phoneme boundaries for a 
+speech sample by hand. A **forced aligner** is a software tool that 
+automates the creation of word and phoneme boundaries. The aligner takes an 
+audio file (typically a .wav file) and a transcript of the speech sample 
+(usually a .txt or .lab file), and it uses a speech recognition model to 
+create textgrid. It is called a *forced* aligner because it has to follow the 
+transcript and set down intervals for each word and phoneme in the transcript. 
+(It is not allowed to identify the words itself.)
+
 
 A textgrid file is associated with a given audio file and has moveable boundaries and labels to note the occurrence of certain events (like the beginning and end of a vowel) that may be useful for research. @fig-2 shows the phrase from @fig-1 when opened with the textgrid produced by the Montreal Forced Aligner. The textgrids we create for the lab contain separate **tiers** for words, sounds, and the sentence containing them. Each tier has **intervals** with **vertical boundaries** separating words and sounds. These files (the .TextGrid and .wav file) can be used for automated retrieval of acoustic data such as the duration of a word or sound, formant frequencies of vowels, and other variables of interest.
 
 ![“The sign says keep out” when the recording is opened together with a fully annotated textgrid.](alignmentGuide/media/image5.png){#fig-2 width="75%"}
 
-We can open these textgrids along with the audio file in a program called **Praat**. When the textgrids and audio files are paired together in Praat, it is now easier and quicker for us to make measurements because we have labels for each word and sound, as well as the time intervals during which these events occur.
+We can open these textgrids along with the audio file in a program called **Praat**. When the textgrids and audio files are paired together in Praat, it is easier and quicker for us to make measurements because we have labels for each word and sound, as well as the time intervals during which these events occur.
 
-<aside>*Praat* is Dutch for "talk" or "talking", and it sounds like “praht” /pra:t/.</aside>. 
+<aside>*Praat* is Dutch for "talk" or "talking", and it sounds like “praht”
+/pra:t/.</aside>.
+
+
 
 ### Hand-correction {#b.-hand-correction}
 
-Forced aligners are far from perfect. When a forced aligner creates a textgrid, the initial placement of boundaries for words and sounds may not be accurate. During the **hand-correction** process, researchers manually adjust the boundaries of textgrids that have been automatically created using the Montreal Forced Aligner (MFA). When MFA pairs a transcription with an audio file, it often produces fairly accurate boundary placements. In these cases the boundaries may only need some slight shifting, or even no adjustment at all. Other times, the boundaries are placed at the wrong times, or even when an entirely different word is being produced. These boundaries require hand-correction.
+Forced aligners are far from perfect. When a forced aligner creates a textgrid, the initial placement of boundaries for words and sounds may not be accurate. During the **hand-correction** process, researchers manually adjust the boundaries of textgrids that have been automatically created using the aligner. 
 
-The goal of the researcher performing hand-correction is to ensure proper boundary placement. This guide is intended to help visually identify alignment issues by looking at spectrograms and waveforms, and is designed to be a guide for decision-making when boundary placement is difficult to determine.
+Our group uses the Montreal Forced Aligner (MFA) or Wav2TextGrid (W2TG) aligners. For this document, we assumed that original textgrids were created by MFA.
 
-@fig-3 shows a textgrid prior to hand correction, the same textgrid but
-with black and gold squares overlaid on the image to show where the word
-boundaries actually are, and the textgrid after hand-correction.
+When MFA pairs a transcription with an audio file, it often produces
+fairly accurate boundary placements. In these cases the boundaries may
+only need some slight shifting, or even no adjustment at all. Sometimes,
+the boundaries are placed at the wrong times, and in more severe cases, the
+alignment goes "off the rails" with intervals being assigned to entirely
+wrong words. These boundaries require hand correction. See example in @fig-3.
+
 
 
 ::: {#fig-3 layout-nrow="3"}
-![Before correction. The boundaries for *cowboy* were placed too soon,
-and boundaries for *boots* include the *boy* part of
-*cowboy*.](alignmentGuide/media/image6.png){width="60%"}
+![*Before correction*: Boundaries for *cowboy* were placed too soon, and
+the boundaries for *boots* include the *boy* part of *cowboy*. In the
+lower phoneme tier, there is vowel in *boy* takes up negligible amount
+of space; it is to narrow for Praat to print the
+characters.](alignmentGuide/media/image6.png){width="70%"}
   
-![With correction of the word boundaries. (Black and gold squares show
-where the words actually
-occur.)](alignmentGuide/media/image7.png){width="70%"}
+![*Comparison of word boundaries*: The black and gold shapes mark the intervals where *cowboy* and *boots* actually occur.)](alignmentGuide/media/image7.png){width="70%"}
 
-![With correction of the phone
-boundaries.](alignmentGuide/media/image8.png){width="70%"}
+![*After correction*.](alignmentGuide/media/image8.png){width="70%"}
 
-Force-aligned textgrid of *cowboy boots* before and after hand
-correction.
+Textgrid of *cowboy boots* before and after hand correction.
 :::
+
+
+
+The goal of the researcher performing hand correction is to ensure
+proper boundary placement. This guide is intended to help visually
+identify alignment issues by using spectrograms and waveforms, and it is
+designed to be a guide for decision-making when boundary placement is
+difficult to determine.
+
 
 
 ### Phonetic alphabets
 
 This guide makes use of two different phonetic alphabets. The first is
 the [International Phonetic Alphabet
-(IPA)](https://www.internationalphoneticassociation.org/content/full-ipa-chart)
-and will be notated using conventional forward slashes as in /t/ or /u/.
-The IPA includes many non-English characters or diacritics, which can
+(IPA)](https://www.internationalphoneticassociation.org/content/full-ipa-chart),
+and we notate IPA using conventional forward slashes as in /t/ or /u/.
+The IPA includes many non-English-alphabet characters or diacritics which can
 cause headaches for computing systems. A more computing-friendly
-alphabet is [ARPABET](https://en.wikipedia.org/wiki/ARPABET) which uses
-ASCII characters, specifically all-caps English letters. We use a
+phonetic alphabet is [ARPABET](https://en.wikipedia.org/wiki/ARPABET) which uses
+ASCII characters, specifically all-caps English-alphabet letters. We use a
 particular flavor of ARPABET called CMUBET. It is the alphabet used by
 the [CMU pronunciation
 dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) and used in
-the MFA alignments. CMUBET is the ARPABET but with numbers added onto
-vowels indicate stress. We note here that the alignments performed in
+the MFA alignments. We note here that the alignments performed in
 the WISC Lab and any alignments using the CMU dictionary are based on
 North American pronunciations. @tbl-vowels and @tbl-consonants show
 vowels and consonants in North American English in the two alphabets.
+
+<aside>CMUBET is the ARPABET but with numbers added onto vowels indicate stress.
+Because numbers mark stress, `AH0` is /ə/ but `AH1` or higher is /ʌ/. The same
+goes for `ER` and /ɚ/ and /ɝ/.</aside>
 
 ```{=html}
 <table id ="tbl-vowels">
@@ -263,13 +303,21 @@ This guide assumes that you have access to audio files and corresponding textgri
 
 ## Overarching principles
 
-While the remainder of this guide shows specific examples of where boundaries should be placed in certain circumstances, there are a few overarching principles to keep in mind. These should be used in conjunction with the remainder of the guide to make more efficient decisions regarding boundary placement.
+Although the remainder of this guide shows specific examples of where alignment boundaries should be placed in certain circumstances, there are a few overarching principles to keep in mind. These should be used in conjunction with the remainder of the guide to make more efficient decisions regarding boundary placement.
 
-1.  **What counts as speech?**\
-    We’re counting as speech any sound generated by the articulators that carries information about the sounds produced in the utterance.
+1.  **What counts as speech?**  
+    We're counting as speech any sound generated by the articulators
+    that carries information about the sounds produced in the utterance.
 
-2.  **When should a boundary be moved?**\
-    Boundaries should remain where they were placed by the forced aligner unless you have visual or auditory evidence that a given boundary does not line up with the beginning or end of a sound. Minimizing unnecessary movements promotes consistency across alignments.
+2.  **When should a boundary be moved?**  
+    Boundaries should remain where they were placed by the forced
+    aligner unless you have visual or auditory evidence that a given
+    boundary does not line up with the beginning or end of a sound.
+    Minimizing unnecessary movements promotes consistency across
+    alignments.
+
+
+
 
 ## Using Praat
 
@@ -285,15 +333,17 @@ On Windows machines: right click on any .praat file, and select “Properties”
 
 ### Praat shortcuts {#praat-shortcuts}
 
--   Zoom in – ctrl + I
 
--   Zoom out – ctrl + O
+  - Zoom in – <kbd>Ctrl-I</kbd>
 
--   Zoom to selection – ctrl + N
+  - Zoom out – <kbd>Ctrl-O</kbd>
 
--   Select next interval/tier – alt + arrow keys
+  - Zoom to selection – <kbd>Ctrl-N</kbd> 
 
--   Remove boundary – click on or after a boundary, and type alt + backspace (do this for each tier that a boundary needs to be deleted on)
+  - Select next interval/tier – <kbd>Alt-arrows</kbd>
+
+  - Remove boundary – click on or after a boundary, and type <kbd>Alt-Backspace</kbd> (do this for each tier that a boundary needs to be
+    deleted on).
 
 ## Hand-correction {#hand-correction}
 
