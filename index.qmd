@@ -4,11 +4,11 @@ subtitle: WISC Lab guide to the hand-correction of force-aligned textgrids
 author: 
 # https://quarto.org/docs/authoring/front-matter.html#roles
   - name: Lucas Annear
-    roles: Conceptualization of hand-correction project. Wrote guide and curated examples.
+    roles: Conceptualization of hand-correction project. Wrote guide for our group and curated examples.
   - name: Henry Nomeland
     roles: Converted guide to Markdown, refined examples. Continued development of guide.
   - name: Tristan Mahr
-    roles: Conceptualization of hand-correction project. Converted guide to Quarto, edited.
+    roles: Conceptualization of hand-correction project. Converted guide to Quarto, revised guide for wider publication.
 format:
   html:
     fig-cap-location: top
@@ -34,12 +34,13 @@ notes:
 ### Forced alignment and textgrids
 
 In the [WISC Lab](https://kidspeech.wisc.edu/) we have audio recordings
-of children with both typical speech development as well as children with speech and motor
-impairments due to cerebral palsy. In these recordings the child is
-repeating words and phrases from the *Test of Children’s Speech* [TOCS,
-@tocs2007]. Example items include *cowboy boots* and *put all
-the toys away*. These speech samples are used to calculate articulation rate,
-speech sound accuracy, and measures of how intelligible a child is.
+of children with both typical speech development as well as children
+with speech and motor impairments due to cerebral palsy. In these
+recordings the child is repeating words and phrases from the *Test of
+Children’s Speech* [TOCS, @tocs2007]. Example items include *cowboy
+boots* and *put all the toys away*. These speech samples are used to
+calculate articulation rate, speech sound accuracy, and measures of how
+intelligible a child is.
 
 
 
@@ -126,28 +127,50 @@ designed to be a guide for decision-making when boundary placement is
 difficult to determine.
 
 
+## Preliminaries
 
 ### Phonetic alphabets
 
+<!-- IPA -->
+<!--   ~ International Phonetic Alphabet, the conventional way to represent speech  -->
+<!--   sounds -->
+
+<!-- Term 2 -->
+<!--   ~ Definition 2a -->
+<!--   ~ Definition 2b -->
+
 This guide makes use of two different phonetic alphabets. The first is
-the [International Phonetic Alphabet
-(IPA)](https://www.internationalphoneticassociation.org/content/full-ipa-chart),
-and we notate IPA using conventional forward slashes as in /t/ or /u/.
-The IPA includes many non-English-alphabet characters or diacritics which can
-cause headaches for computing systems. A more computing-friendly
-phonetic alphabet is [ARPABET](https://en.wikipedia.org/wiki/ARPABET) which uses
-ASCII characters, specifically all-caps English-alphabet letters. We use a
-particular flavor of ARPABET called CMUBET. It is the alphabet used by
-the [CMU pronunciation
-dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) and used in
-the MFA alignments. We note here that the alignments performed in
-the WISC Lab and any alignments using the CMU dictionary are based on
-North American pronunciations. @tbl-vowels and @tbl-consonants show
-vowels and consonants in North American English in the two alphabets.
+the [International Phonetic Alphabet (IPA)][ipa], and we notate IPA
+using conventional forward slashes as in /t/ or /u/. 
+The IPA includes many non-English-alphabet characters and diacritics,
+and these characters can raise problems in older plain-text computing
+workflows.
+
+
+The second phonetic alphabet is [ARPABET][arpabet] which uses
+[ASCII][ascii] characters to represent speech sounds. (Think of the
+ASCII characters as the basic characters one can write with an American
+keyboard.) We use a particular flavor of ARPABET called CMUBET. The IPA
+characters /ʃ/, /ŋ/, and /ə/, for example, are written as SH, NG and AH0 in
+this phonetic alphabet. CMUBET is the alphabet used by the [CMU
+pronunciation dictionary][cmu], and it is supported by MFA.
 
 <aside>CMUBET is the ARPABET but with numbers added onto vowels indicate stress.
 Because numbers mark stress, `AH0` is /ə/ but `AH1` or higher is /ʌ/. The same
 goes for `ER` and /ɚ/ and /ɝ/.</aside>
+
+We note here that the alignments performed in the WISC Lab and any
+alignments using the CMU dictionary are based on North American
+pronunciations. @tbl-vowels and @tbl-consonants show vowels and
+consonants in North American English in the two alphabets.
+
+[cmu]: http://www.speech.cs.cmu.edu/cgi-bin/cmudict "CMU pronunciation dictionary"
+
+[ipa]: https://www.internationalphoneticassociation.org/content/full-ipa-chart "IPA chart"
+
+[arpabet]: https://en.wikipedia.org/wiki/ARPABET "Wikipedia: ARPABET"
+
+[ascii]: https://en.wikipedia.org/wiki/ASCII#Character_set "Wikipedia: ASCII"
 
 ```{=html}
 <table id ="tbl-vowels">
@@ -299,17 +322,66 @@ goes for `ER` and /ɚ/ and /ɝ/.</aside>
 
 ### Montreal Forced Aligner {#d.-montreal-forced-aligner}
 
-This guide assumes that you have access to audio files and corresponding textgrids which have been aligned using MFA. If you do not have access to such files or have audio files but do not know how to force align them, it would be best to learn how to do so before continuing any further into the guide. Eleanor Chodroff has published an excellent tutorial on how to use MFA which can be accessed [here](https://www.eleanorchodroff.com/tutorial/montreal-forced-aligner.html#montreal-forced-aligner). The tutorial is part of a larger guide on corpus phonetics which including theoretical explanations of how forced alignment works.
+This guide assumes that you have audio files and their corresponding
+forced alignment textgrids (created by MFA). If you do not have
+forced-alignment textgrids, see MFA's [installation
+guide][mfa-install] and [first-steps
+instructions][mfa-first-steps]. Eleanor Chodroff also has a [chapter
+on MFA][echo-mfa] in her [corpus phonetics tutorial][echo-book],
+although this guide may fall out of sync with MFA over time.
+
+[mfa-install]: https://montreal-forced-aligner.readthedocs.io/en/latest/installation.html "MFA installation page"
+
+[mfa-first-steps]: https://montreal-forced-aligner.readthedocs.io/en/latest/first_steps/index.html#first-steps-align-pretrained "MFA First Steps page"
+
+[echo-book]: https://eleanorchodroff.com/tutorial/index.html "Corpus Phonetics Tutorial online book"
+
+[echo-mfa]: https://www.eleanorchodroff.com/tutorial/montreal-forced-aligner.html#montreal-forced-aligner "MFA tutorial in the Corpus Phonetics Tutorial"
+
+### Praat
+
+### Download Praat {#download-praat}
+
+Praat can be downloaded from <https://www.fon.hum.uva.nl/praat/>, and its 
+website provides ample documentation about installation.
+
+We often use Praat scripts in our lab. These are short programs that
+control Praat as a user would but in an automated way. For example, we
+can have Praat open pairs of .wav and .TextGrid files for hand
+correction one at a time with a Praat script. These script files end in
+`.praat`. 
+
+When working with the Praat editor window, which we use when correcting
+textgrids, the following keyboard shortcuts are helpful.
+
+  - Zoom in – <kbd>Ctrl-I</kbd>
+
+  - Zoom out – <kbd>Ctrl-O</kbd>
+
+  - Zoom to selection – <kbd>Ctrl-N</kbd>
+
+  - Select prev/next interval – <kbd>Alt-left arrow</kbd> and
+    <kbd>Alt-right arrow</kbd>
+  
+  - Select prev/next tier – <kbd>Alt-up arrow</kbd> and <kbd>Alt-down
+    arrow</kbd>
+
+  - Remove boundary – click on or after a boundary and press
+    <kbd>Alt-Backspace</kbd>. Remember that a boundary needs to be
+    deleted on each tier that cointains it.
+
+
+
 
 ## Overarching principles
 
 Although the remainder of this guide shows specific examples of where alignment boundaries should be placed in certain circumstances, there are a few overarching principles to keep in mind. These should be used in conjunction with the remainder of the guide to make more efficient decisions regarding boundary placement.
 
-1.  **What counts as speech?**  
+1.  **What counts as speech?**  \
     We're counting as speech any sound generated by the articulators
     that carries information about the sounds produced in the utterance.
 
-2.  **When should a boundary be moved?**  
+2.  **When should a boundary be moved?**  \
     Boundaries should remain where they were placed by the forced
     aligner unless you have visual or auditory evidence that a given
     boundary does not line up with the beginning or end of a sound.
@@ -317,33 +389,6 @@ Although the remainder of this guide shows specific examples of where alignment 
     alignments.
 
 
-
-
-## Using Praat
-
-### Download Praat {#download-praat}
-
-If you don’t already have Praat downloaded on your computer, it can be found [here](https://www.fon.hum.uva.nl/praat/).
-
-The download gives you a .zip file, which you can extract to your location of choice (Desktop, Program Files, etc.).
-
-### Set Praat as the default {#set-praat-as-the-default}
-
-On Windows machines: right click on any .praat file, and select “Properties”. Under *Opens with*, select *Change* and select Praat as the program that automatically opens .praat files (navigate to wherever Praat is saved on your computer).
-
-### Praat shortcuts {#praat-shortcuts}
-
-
-  - Zoom in – <kbd>Ctrl-I</kbd>
-
-  - Zoom out – <kbd>Ctrl-O</kbd>
-
-  - Zoom to selection – <kbd>Ctrl-N</kbd> 
-
-  - Select next interval/tier – <kbd>Alt-arrows</kbd>
-
-  - Remove boundary – click on or after a boundary, and type <kbd>Alt-Backspace</kbd> (do this for each tier that a boundary needs to be
-    deleted on).
 
 ## Hand-correction {#hand-correction}
 
